@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1220">
+  <meta name="color-scheme" content="dark">
+  <title>CRICKET</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='22' fill='%232f8bff'/%3E%3Cpath d='M15 8c8 6 8 26 0 32M33 8c-8 6-8 26 0 32' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-dasharray='2 4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Splash while the session is being checked -->
+  <div id="splash" class="splash" aria-hidden="true">
+    <svg class="logo-svg big" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#2f8bff"/><path d="M15 8c8 6 8 26 0 32M33 8c-8 6-8 26 0 32" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 4"/></svg>
+    <div class="splash-name">CRICKET</div>
+    <div class="splash-bar"><i></i></div>
+  </div>
+
+  <!-- ===================== AUTH ===================== -->
+  <section id="auth-view" class="auth" hidden>
+    <div class="orb o1" aria-hidden="true"></div><div class="orb o2" aria-hidden="true"></div><div class="orb o3" aria-hidden="true"></div>
+    <div class="auth-card">
+      <div class="brand">
+        <svg class="logo-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#2f8bff"/><path d="M15 8c8 6 8 26 0 32M33 8c-8 6-8 26 0 32" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 4"/></svg>
+        <h1>CRICKET</h1>
+      </div>
+      <p class="tagline">Fast, private, real-time messaging.</p>
+
+      <div class="seg" role="tablist">
+        <button type="button" id="auth-tab-login" class="active" role="tab" aria-selected="true">Log in</button>
+        <button type="button" id="auth-tab-signup" role="tab" aria-selected="false">Sign up</button>
+      </div>
+
+      <form id="login-form" novalidate>
+        <label class="field">
+          <span>Email or username</span>
+          <input id="login-id" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="254" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="login-pass" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+        </label>
+        <div id="login-error" class="form-error" role="alert"></div>
+        <button class="btn primary block" type="submit" id="login-submit">Log in</button>
+      </form>
+
+      <form id="signup-form" novalidate hidden>
+        <label class="field">
+          <span>Email</span>
+          <input id="su-email" name="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" required>
+        </label>
+        <label class="field">
+          <span>Username</span>
+          <input id="su-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20" required>
+          <small id="su-username-hint" class="hint-line">3-20 letters, numbers or underscores.</small>
+        </label>
+        <label class="field">
+          <span>Display name <em>(optional)</em></span>
+          <input id="su-display" name="displayName" type="text" autocomplete="nickname" maxlength="40">
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="su-pass" name="password" type="password" autocomplete="new-password" maxlength="128" required>
+          <small class="hint-line">At least 8 characters, with a letter and a number.</small>
+        </label>
+        <label class="field">
+          <span>Confirm password</span>
+          <input id="su-pass2" name="password2" type="password" autocomplete="new-password" maxlength="128" required>
+        </label>
+        <div id="signup-error" class="form-error" role="alert"></div>
+        <button class="btn primary block" type="submit" id="signup-submit">Create account</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===================== MAIN APP ===================== -->
+  <div id="main-view" class="main" hidden>
+
+    <nav class="rail" aria-label="Main navigation">
+      <svg class="logo-svg rail-logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#2f8bff"/><path d="M15 8c8 6 8 26 0 32M33 8c-8 6-8 26 0 32" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 4"/></svg>
+      <button type="button" class="rail-btn active" data-tab="chats">
+        <span class="rail-ico" data-icon="chat"></span><span class="lbl">Chats</span><span id="rail-badge" class="rail-badge" hidden></span>
+      </button>
+      <button type="button" class="rail-btn" data-tab="contacts">
+        <span class="rail-ico" data-icon="users"></span><span class="lbl">Contacts</span>
+      </button>
+      <button type="button" class="rail-btn" data-tab="profile">
+        <span class="rail-ico" id="rail-avatar" data-icon="user"></span><span class="lbl">Profile</span>
+      </button>
+      <button type="button" class="rail-btn" data-tab="settings">
+        <span class="rail-ico" data-icon="settings"></span><span class="lbl">Settings</span>
+      </button>
+    </nav>
+
+    <aside class="panel" id="panel">
+      <header class="panel-head">
+        <div class="wordmark">CRICKET</div>
+        <div class="conn"><span id="conn-dot" class="conn-dot"></span><span id="conn-text"></span></div>
+      </header>
+
+      <div id="searchbar" class="searchbar">
+        <span class="s-ico" data-icon="search"></span>
+        <input id="search-input" type="search" placeholder="Search users by username" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="30" aria-label="Search users by username">
+        <button type="button" id="search-clear" class="s-clear" aria-label="Clear search" data-icon="x" hidden></button>
+      </div>
+
+      <div id="search-results" class="scroll" hidden></div>
+
+      <!-- Chats -->
+      <div id="tab-chats" class="tab scroll">
+        <div id="chat-list" class="list"></div>
+        <div id="chats-empty" class="empty" hidden>
+          <div class="empty-ico" data-icon="chat"></div>
+          <h3>No conversations yet</h3>
+          <p>Search for a username above to start chatting.</p>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div id="tab-contacts" class="tab scroll" hidden>
+        <div id="contact-list" class="list"></div>
+        <div id="contacts-empty" class="empty" hidden>
+          <div class="empty-ico" data-icon="users"></div>
+          <h3>No contacts yet</h3>
+          <p>Find people with the search bar, then add them to your contacts.</p>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <div id="tab-profile" class="tab scroll" hidden>
+        <div class="tab-body">
+          <div class="profile-hero">
+            <div id="pf-avatar"></div>
+            <div class="hero-actions">
+              <button type="button" id="pf-avatar-btn" class="btn small">Change photo</button>
+              <button type="button" id="pf-avatar-remove" class="btn small ghost">Remove</button>
+            </div>
+            <input type="file" id="pf-avatar-input" accept="image/jpeg,image/png,image/gif,image/webp" hidden>
+            <div id="pf-status" class="status-chip"></div>
+          </div>
+
+          <form id="profile-form" novalidate>
+            <label class="field">
+              <span>Display name</span>
+              <input id="pf-name" type="text" maxlength="40" autocomplete="off">
+            </label>
+            <label class="field">
+              <span>Username</span>
+              <input id="pf-username" type="text" maxlength="20" autocomplete="off" autocapitalize="none" spellcheck="false">
+              <small id="pf-username-hint" class="hint-line"></small>
+            </label>
+            <label class="field">
+              <span>Bio</span>
+              <textarea id="pf-bio" rows="3" maxlength="200" placeholder="Tell people about yourself"></textarea>
+              <small id="pf-bio-count" class="hint-line right">0 / 200</small>
+            </label>
+            <label class="field">
+              <span>Email <em>(private)</em></span>
+              <input id="pf-email" type="email" readonly disabled>
+            </label>
+            <div id="pf-error" class="form-error" role="alert"></div>
+            <button type="submit" id="pf-save" class="btn primary block">Save changes</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div id="tab-settings" class="tab scroll" hidden>
+        <div class="tab-body">
+          <section class="card">
+            <h3>Account</h3>
+            <div id="st-account" class="account-row"></div>
+            <button type="button" id="st-edit-profile" class="btn block">Edit profile</button>
+          </section>
+
+          <section class="card">
+            <h3>Privacy</h3>
+            <p class="hint">Blocked users can't message you and can't see when you are online. Your private conversations are only visible to you and the other person.</p>
+            <div id="blocked-list" class="list compact"></div>
+          </section>
+
+          <section class="card">
+            <h3>Appearance</h3>
+            <p class="hint">Pick an accent colour for buttons, bubbles and highlights. Saved on this device.</p>
+            <div id="theme-swatches" class="swatches" role="radiogroup" aria-label="Accent colour"></div>
+          </section>
+
+          <section class="card">
+            <h3>Change password</h3>
+            <form id="password-form" novalidate>
+              <label class="field"><span>Current password</span><input id="pw-current" type="password" autocomplete="current-password" maxlength="128"></label>
+              <label class="field"><span>New password</span><input id="pw-new" type="password" autocomplete="new-password" maxlength="128"></label>
+              <label class="field"><span>Confirm new password</span><input id="pw-new2" type="password" autocomplete="new-password" maxlength="128"></label>
+              <div id="pw-error" class="form-error" role="alert"></div>
+              <button type="submit" id="pw-submit" class="btn primary block">Update password</button>
+            </form>
+          </section>
+
+          <section class="card">
+            <h3>Session</h3>
+            <button type="button" id="logout-btn" class="btn danger block">Log out</button>
+          </section>
+
+          <p class="fineprint">CRICKET keeps everything in server memory. Accounts, chats and files disappear whenever the server restarts.</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="chat" id="chat">
+      <div id="chat-empty" class="chat-empty">
+        <svg class="logo-svg big" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#2f8bff"/><path d="M15 8c8 6 8 26 0 32M33 8c-8 6-8 26 0 32" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 4"/></svg>
+        <h2>Welcome to CRICKET</h2>
+        <p>Select a chat, or search for a username to start a conversation.</p>
+      </div>
+
+      <div id="chat-screen" class="chat-screen" hidden>
+        <header class="chat-head">
+          <button type="button" id="chat-back" class="icon-btn" aria-label="Back" data-icon="back"></button>
+          <button type="button" id="chat-peer" class="peer-btn" aria-label="View profile">
+            <span id="chat-avatar"></span>
+            <span class="peer-text"><span id="chat-name" class="peer-name"></span><span id="chat-status" class="peer-status"></span></span>
+          </button>
+          <button type="button" id="chat-more" class="icon-btn" aria-label="Chat options" data-icon="more"></button>
+        </header>
+
+        <div id="thread" class="thread" tabindex="-1"></div>
+        <button type="button" id="scroll-down" class="scroll-down" aria-label="Scroll to latest message" data-icon="down" hidden></button>
+
+        <footer class="composer-wrap">
+          <div id="blocked-bar" class="blocked-bar" hidden>
+            <span id="blocked-text"></span>
+            <button type="button" id="unblock-btn" class="btn small primary">Unblock</button>
+          </div>
+
+          <form id="composer" class="composer" autocomplete="off">
+            <button type="button" id="attach-btn" class="icon-btn" aria-label="Attach photo or video" data-icon="clip"></button>
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/quicktime" multiple hidden>
+            <div class="input-wrap">
+              <textarea id="msg-input" rows="1" placeholder="Message" maxlength="4000" aria-label="Message"></textarea>
+            </div>
+            <button type="button" id="mic-btn" class="send-btn" aria-label="Record a voice message" data-icon="mic"></button>
+            <button type="submit" id="send-btn" class="send-btn" aria-label="Send message" data-icon="send" hidden></button>
+          </form>
+
+          <div id="recorder" class="recorder" hidden>
+            <button type="button" id="rec-cancel" class="icon-btn danger" aria-label="Cancel recording" data-icon="trash"></button>
+            <span class="rec-dot"></span>
+            <span id="rec-time" class="rec-time">0:00</span>
+            <span class="rec-hint">Recording...</span>
+            <button type="button" id="rec-send" class="send-btn" aria-label="Send voice message" data-icon="send"></button>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <div id="overlay-root"></div>
+  <div id="toast-root" class="toasts" aria-live="polite"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
